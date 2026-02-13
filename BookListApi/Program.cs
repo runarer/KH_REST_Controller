@@ -1,3 +1,4 @@
+using BookListApi.Extensions;
 using BookListApi.Model.Context;
 using BookListApi.Services;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddOpenApi();
-
+builder.Services.AddBookListService(builder.Configuration);
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -31,11 +32,6 @@ using (var scope = app.Services.CreateScope())
 
     var service = scope.ServiceProvider.GetService<BookListService>();
     if (service is null) throw new InvalidCastException(nameof(service));
-
-    if (!await db.BookList.AnyAsync())
-    {
-        // foreach(var book in )
-    }
 }
 
 
