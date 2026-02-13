@@ -1,5 +1,6 @@
 using BookListApi.Model.Context;
 using BookListApi.Model.DTO;
+using BookListApi.Model.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookListApi.Services;
@@ -16,4 +17,43 @@ public class BookListService(BookListContext dbContext)
                                 book.Universe,
                                 book.Series)
         ).ToListAsync();
+
+    public async Task<BookResponseDTO> Add(BookRequestDTO book)
+    {
+        var newBook = new BookEntity
+        {
+            Name = book.Name,
+            ISBN = book.ISBN,
+            Author = book.Author,
+            Read = book.Read is not null && book.Read.Value,
+            Universe = book.Universe,
+            Series = book.Series
+        };
+        await dbContext.BookList.AddAsync(newBook);
+        await dbContext.SaveChangesAsync();
+        return new BookResponseDTO(
+            newBook.Id,
+            newBook.Name,
+            newBook.ISBN,
+            newBook.Author,
+            newBook.Read,
+            newBook.Universe,
+            newBook.Series);
+    }
+
+    public async Task<BookResponseDTO?> Get(int id)
+    {
+        var book = await dbContext.BookList.FindAsync(id);
+
+        if (book is null)
+            return null;
+        return new BookResponseDTO(
+            book.Id,
+            book.Name,
+            book.ISBN,
+            book.Author,
+            book.Read,
+            book.Universe,
+            book.Series);
+    }
 }
