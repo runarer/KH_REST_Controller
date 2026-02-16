@@ -483,3 +483,4 @@ $RECYCLE.BIN/
 BookListApi/Data/BookList.db-shm
 .gitignore
 BookListApi/Data/BookList.db-wal
+BookListApi/Data/BookList.db
