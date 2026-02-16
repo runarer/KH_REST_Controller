@@ -34,6 +34,8 @@ using (var scope = app.Services.CreateScope())
     var service = scope.ServiceProvider.GetService<BookListService>();
     if (service is null) throw new InvalidCastException(nameof(service));
 
+    db.Database.Migrate();
+
     // Check if Database need seeding
     if (!await db.BookList.AnyAsync())
     {
