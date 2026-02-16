@@ -20,7 +20,7 @@ public class BookListController(BookListService service) : ControllerBase
                                                                                 Created($"api/books/{newBook.Id}", newBook) :
                                                                                 StatusCode(500, new { message = "Something when wrong when posting book!" });
 
-    [HttpGet]
+    [HttpGet("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAsync(int id) => await service.Get(id) is BookResponseDTO book ? Ok(book) : NotFound();
