@@ -480,3 +480,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+BookListApi/Data/BookList.db-shm
+.gitignore
+BookListApi/Data/BookList.db-wal
