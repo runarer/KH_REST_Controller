@@ -25,12 +25,12 @@ public class BookListController(BookListService service) : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAsync(int id) => await service.Get(id) is BookResponseDTO book ? Ok(book) : NotFound();
 
-    [HttpGet("{id:int}/read")]
+    [HttpPatch("{id:int}/read")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> BookReadAsync(int id) => await service.Completed(id, true) is BookResponseDTO book ? Ok(book) : NotFound();
 
-    [HttpGet("{id:int}/not-read")]
+    [HttpPatch("{id:int}/not-read")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> BookNotReadAsync(int id) => await service.Completed(id, false) is BookResponseDTO book ? Ok(book) : NotFound();
