@@ -3,7 +3,7 @@ using BookListApi.Model.Context;
 using BookListApi.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspNetCoreDemo.Extensions;
+namespace BookListApi.Extensions;
 
 public static class BookListServiceCollectionExtension
 {
