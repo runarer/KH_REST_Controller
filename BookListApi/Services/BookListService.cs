@@ -37,6 +37,20 @@ public class BookListService(BookListContext dbContext)
         return CreateBookResponseDTO(book);
     }
 
+    public async Task<BookResponseDTO?> Completed(int id, bool completed)
+    {
+        var book = await dbContext.BookList.FindAsync(id);
+
+        if (book is null)
+            return null;
+
+        book.Read = completed;
+        await dbContext.SaveChangesAsync();
+        return CreateBookResponseDTO(book);
+    }
+
+
+
     private static BookResponseDTO CreateBookResponseDTO(BookEntity book)
     {
         return new BookResponseDTO(
