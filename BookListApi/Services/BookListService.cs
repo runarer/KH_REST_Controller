@@ -8,14 +8,7 @@ namespace BookListApi.Services;
 public class BookListService(BookListContext dbContext)
 {
     public async Task<List<BookResponseDTO>> GetAll() => await dbContext.BookList
-        .Select(book =>
-            new BookResponseDTO(book.Id,
-                                book.Name,
-                                book.ISBN,
-                                book.Author,
-                                book.Read,
-                                book.Universe,
-                                book.Series)
+        .Select(book => CreateBookResponseDTO(book)
         ).ToListAsync();
 
     public async Task<BookResponseDTO> Add(BookRequestDTO book)
@@ -31,14 +24,7 @@ public class BookListService(BookListContext dbContext)
         };
         await dbContext.BookList.AddAsync(newBook);
         await dbContext.SaveChangesAsync();
-        return new BookResponseDTO(
-            newBook.Id,
-            newBook.Name,
-            newBook.ISBN,
-            newBook.Author,
-            newBook.Read,
-            newBook.Universe,
-            newBook.Series);
+        return CreateBookResponseDTO(newBook);
     }
 
     public async Task<BookResponseDTO?> Get(int id)
@@ -47,6 +33,11 @@ public class BookListService(BookListContext dbContext)
 
         if (book is null)
             return null;
+        return CreateBookResponseDTO(book);
+    }
+
+    private static BookResponseDTO CreateBookResponseDTO(BookEntity book)
+    {
         return new BookResponseDTO(
             book.Id,
             book.Name,
@@ -54,6 +45,7 @@ public class BookListService(BookListContext dbContext)
             book.Author,
             book.Read,
             book.Universe,
-            book.Series);
+            book.Series,
+            book.PositionInSeries);
     }
 }
