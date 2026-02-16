@@ -9,8 +9,9 @@ public class BookEntity
     public required string Name { get; set; }
     public required string ISBN { get; set; }
     public required string Author { get; set; }
-    public bool Read { get; set; }
+    public bool Read { get; set; } = false;
     public string? Universe { get; set; }
     public string? Series { get; set; }
+    public int PositionInSeries { get; set; } = 0;
 }
 
