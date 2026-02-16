@@ -1,3 +1,4 @@
+using BookListApi.Data;
 using BookListApi.Extensions;
 using BookListApi.Model.Context;
 using BookListApi.Services;
@@ -32,8 +33,14 @@ using (var scope = app.Services.CreateScope())
 
     var service = scope.ServiceProvider.GetService<BookListService>();
     if (service is null) throw new InvalidCastException(nameof(service));
-}
 
+    // Check if Database need seeding
+    if (!await db.BookList.AnyAsync())
+    {
+        foreach (string line in File.ReadLines("./Data/Books.csv").Skip(1))
+            _ = service.Add(CsvToBook.ParseLine(line));
+    }
+}
 
 
 app.Run();
