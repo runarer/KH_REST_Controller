@@ -19,8 +19,9 @@ public class BookListService(BookListContext dbContext)
             ISBN = book.ISBN,
             Author = book.Author,
             Read = book.Read is not null && book.Read.Value,
-            Universe = book.Universe,
-            Series = book.Series
+            Universe = string.IsNullOrWhiteSpace(book.Universe) ? null : book.Universe,
+            Series = string.IsNullOrWhiteSpace(book.Series) ? null : book.Series,
+            PositionInSeries = book.PositionInSeries
         };
         await dbContext.BookList.AddAsync(newBook);
         await dbContext.SaveChangesAsync();
