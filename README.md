@@ -58,4 +58,4 @@ http://localhost:5209/api/BookList/11/not-read/
 
 ### List alle bøker i en serie (GET)
 
-'http://localhost:5209/api/BookList/series/The Bobiverse trilogy'
+http://localhost:5209/api/BookList/series/The%20Bobiverse%20trilogy
