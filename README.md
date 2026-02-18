@@ -6,11 +6,11 @@ Serveren startes med `dotnet run` og åpnes for testing med http://localhost:520
 
 ## Endepunkter
 
-### Liste over alle bøker
+### Liste over alle bøker (GET)
 
 GET http://localhost:5209/api/BookList/
 
-### Legge til en bok
+### Legge til en bok (POST)
 
 POST http://localhost:5209/api/BookList/
 
@@ -44,14 +44,18 @@ Forslag til postdata som gir feilmelding
 }
 ```
 
-### Hent informasjon on en bok
+### Hent informasjon on en bok (GET)
 
 http://localhost:5209/api/BookList/12/
 
-### Markere en bok som lest
+### Markere en bok som lest (PATCH)
 
 http://localhost:5209/api/BookList/11/read/
 
-### Markere en bok som ikke lest
+### Markere en bok som ikke lest (PATCH)
 
 http://localhost:5209/api/BookList/11/not-read/
+
+### List alle bøker i en serie (GET)
+
+'http://localhost:5209/api/BookList/series/The Bobiverse trilogy'
