@@ -49,6 +49,16 @@ public class BookListService(BookListContext dbContext)
         return CreateBookResponseDTO(book);
     }
 
+    public async Task<List<BookResponseDTO>?> GetSeries(string name)
+    {
+        var books = await dbContext.BookList.Where(book => book.Series == name).ToListAsync();
+
+        if (books.Count == 0)
+            return null;
+        else
+            return [.. books.Select(CreateBookResponseDTO)];
+    }
+
 
 
     private static BookResponseDTO CreateBookResponseDTO(BookEntity book)
